@@ -2,8 +2,8 @@
 
 There are lots of apps and utilities written in python. These days they are
 being distributed as packages to be installed with pip. While the installation
-of those projects (like [localtunnel][/home/sharat/.pip-apps/manifest/nvpy],
-[nvpy][/home/sharat/.pip-apps/manifest/nvpy]) says, `pip install nvpy`, its not
+of those projects (like [localtunnel](/home/sharat/.pip-apps/manifest/nvpy),
+[nvpy](/home/sharat/.pip-apps/manifest/nvpy)) says, `pip install nvpy`, its not
 always that simple. I don't want to install the app and all its dependencies in
 the system python. I want it to have its own virtualenv.
 
@@ -34,6 +34,6 @@ You should have the `pip-app` and `pip-unapp` functions available now.
 
 # Meta
 
-This thing is licensed with [MIT License][mitl.sharats.me]. Feedback, problems,
-discussion, tweet at [@sharat87][http://twitter.com/sharat87] or open up and
-issue on the [github project page][http://github.com/sharat87/pip-app].
+This thing is licensed with [MIT License](mitl.sharats.me). Feedback, problems,
+discussion, tweet at [@sharat87](http://twitter.com/sharat87) or open up and
+issue on the [github project page](http://github.com/sharat87/pip-app).
