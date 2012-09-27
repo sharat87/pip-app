@@ -25,8 +25,14 @@ And to uninstall,
 
 # Installation
 
-Clone this repo or just download the *pip-app.sh* file and add a source line to
-your `.bashrc` or `.zshrc` or whatever is your shell's equivalent.
+If you use [Antigen](https://github.com/zsh-users/antigen), then the following
+command will get you pip-app.
+
+    antigen-bundle sharat87/pip-app
+
+If not, just clone this repo or just download the *pip-app.sh* file and add a
+source line to your `.bashrc` or `.zshrc` or whatever is your shell's
+equivalent.
 
     source /path/to/pip-app.sh
 
