@@ -1,7 +1,12 @@
 export PIPAPP_DIR="${PIPAPP_DIR:=$HOME/.pip-apps}"
 export PATH="$PIPAPP_DIR/bin:$PATH"
 
-pip-app () {
+_pip-app::install () {
+
+    if [[ "$#" -lt 1 ]]; then
+        echo "Package name missing!"
+        return 1
+    fi
 
     local name="$1"
     shift
@@ -55,7 +60,12 @@ pip-app () {
 
 }
 
-pip-unapp () {
+_pip-app::uninstall () {
+
+    if [[ "$#" -lt 1 ]]; then
+        echo "Package name missing!"
+        return 1
+    fi
 
     local name="$1"
 
@@ -71,5 +81,50 @@ pip-unapp () {
         return 1
 
     fi
+
+}
+
+_pip-app::list () {
+
+    local manifest_dir="$PIPAPP_DIR/manifest"
+    for app in $(ls -1 "$manifest_dir"); do
+        echo $app
+        local binaries="$(cat "$manifest_dir/$app" | \
+            sed "s:$PIPAPP_DIR/bin/::" | tr '\n' ' ')"
+        echo "\t$binaries" | fmt
+    done
+
+}
+
+_pip-app::usage () {
+
+    cat <<EOF
+Usage: pip-app <command> [option]..
+
+Commands:
+  install                     Install application.
+  uninstall                   Uninstall application.
+  list                        List installed applications.
+  help                        Display this help.
+EOF
+
+}
+
+pip-app () {
+
+    if [[ "$#" -lt 1 ]]; then
+        _pip-app::usage
+        return 1
+    fi
+
+    local cmd="${1}"; shift
+    local args="${*}"
+
+    case "${cmd}" in
+        install) _pip-app::install ${args};;
+        uninstall) _pip-app::uninstall ${args};;
+        list) _pip-app::list ${args};;
+        *) _pip-app::usage; return 1;;
+    esac
 
 }
