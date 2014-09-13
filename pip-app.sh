@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 export PIPAPP_DIR="$HOME/.pip-apps"
 export PATH="$PIPAPP_DIR/bin:$PATH"
 
