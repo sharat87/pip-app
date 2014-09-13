@@ -40,6 +40,6 @@ You should have the `pip-app` and `pip-unapp` functions available now.
 
 # Meta
 
-This thing is licensed with [MIT License](mitl.sharats.me). Feedback, problems,
-discussion, tweet at [@sharat87](http://twitter.com/sharat87) or open up and
-issue on the [github project page](http://github.com/sharat87/pip-app).
+This thing is licensed with [MIT License](http://mitl.sharats.me). Feedback,
+problems, discussion, tweet at [@sharat87](http://twitter.com/sharat87) or open
+up and issue on the [github project page](http://github.com/sharat87/pip-app).
