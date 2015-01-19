@@ -25,14 +25,24 @@ And to uninstall,
 
 # Installation
 
-If you use [Antigen](https://github.com/zsh-users/antigen), then the following
-command will get you pip-app.
+## Antigen
 
-    antigen-bundle sharat87/pip-app
+If you use [Antigen](https://github.com/zsh-users/antigen), add the following
+command to your .zshrc with your other antigen bundle commands.
 
-If not, just clone this repo or just download the *pip-app.sh* file and add a
-source line to your `.bashrc` or `.zshrc` or whatever is your shell's
-equivalent.
+    antigen bundle sharat87/pip-app
+
+## Zgen
+
+If you use [Zgen](tarjoilija/zgen), add
+
+    zgen load sharat87/pip-app
+
+to your .zshrc along with your other zgen load commands.
+
+## Without a Framework
+
+If you aren't using a framework, just clone this repo or just download the *pip-app.sh* file and add a source line to your `.bashrc` or `.zshrc` or whatever is your shell's equivalent.
 
     source /path/to/pip-app.sh
 
