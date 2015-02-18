@@ -30,6 +30,12 @@ command will get you pip-app.
 
     antigen-bundle sharat87/pip-app
 
+If you use [zgen](https://github.com/tarjoilija/zgen), add
+
+    zgen load sharat87/pip-app
+
+to your `.zshrc` where you're loading your other zsh plugins.
+
 If not, just clone this repo or just download the *pip-app.sh* file and add a
 source line to your `.bashrc` or `.zshrc` or whatever is your shell's
 equivalent.
