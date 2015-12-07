@@ -34,7 +34,7 @@ command to your .zshrc with your other antigen bundle commands.
 
 ## Zgen
 
-If you use [Zgen](tarjoilija/zgen), add
+If you use [Zgen](https://github.com/tarjoilija/zgen), add
 
     zgen load sharat87/pip-app
 
@@ -42,7 +42,9 @@ to your .zshrc along with your other zgen load commands.
 
 ## Without a Framework
 
-If you aren't using a framework, just clone this repo or just download the *pip-app.sh* file and add a source line to your `.bashrc` or `.zshrc` or whatever is your shell's equivalent.
+If you aren't using a framework, just clone this repo or just download the
+*pip-app.sh* file and add a source line to your `.bashrc` or `.zshrc` or
+whatever is your shell's equivalent.
 
     source /path/to/pip-app.sh
 
