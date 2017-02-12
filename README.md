@@ -36,7 +36,7 @@ That's for simple pip apps.
 You can also have many apps in the same venv. The first app would be
 the venv name.
 
-    pip-app install ansible AdvancedSearchDiscovery
+    pip-app install ansible shade python-openstackclient
 
 That would create a new venv ansible, with the ansible CLI tools, but
 also AdvancedSearchDiscovery. Please note that if the venv already
@@ -44,7 +44,6 @@ exist, it will update the venv with the new extra apps.
 
 That is really ideal for some apps that fail to ship the proper full
 list of dependencies!
-
 
 This tool was a fork of sharat87's [pip app](http://github.com/sharat87/pip-app)
 but is now probably completely defaced.
