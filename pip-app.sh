@@ -3,23 +3,33 @@ export PATH="$PIPAPP_DIR/bin:$PATH"
 
 _pip-app::install () {
 
+    # Examples:
+    # pip-app install ansible
+    # pip-app install ansible PyYAML
+
     if [[ "$#" -lt 1 ]]; then
         echo "Package name missing!"
         return 1
     fi
 
-    local name="$1"
-    shift
+    local name="$1"; shift
 
     local venv_dir="$PIPAPP_DIR/virtualenvs/$name"
 
     if [[ -d "$venv_dir" ]]; then
-        echo 'A virtual env with that name already exists.' >&2
-        return 1
+        if [[ "$#" -lt 1 ]]; then
+            echo 'A virtual env with that name already exists and no additional package was requested.' >&2
+            return 1
+        fi
+    else
+        # Create a new virtualenv
+        virtualenv "$venv_dir"
     fi
 
-    # Create a new virtualenv
-    virtualenv --distribute "$@" "$venv_dir"
+    local extra_packages="$@"
+    echo "Creating venv in $venv_dir"
+    echo "Installing app: $name"
+    echo "Additional apps for this venv: $extra_packages"
 
     # Executables present before installation.
     local execs_before="$(ls "$venv_dir/bin")"
@@ -27,6 +37,11 @@ _pip-app::install () {
     # Install the app.
     (source "$venv_dir/bin/activate" &&
         pip install "$name")
+
+    if [ ! -z "$extra_packages"  ]; then
+        (source "$venv_dir/bin/activate" &&
+        pip install "$extra_packages")
+    fi
 
     # Executables present after installation.
     local execs_after="$(ls "$venv_dir/bin")"
@@ -51,12 +66,12 @@ _pip-app::install () {
     # Save a record of the executables by this app.
     mkdir -p "$PIPAPP_DIR/manifest"
     echo "$execs_new" |
-        sed "s:^:$PIPAPP_DIR/bin/:" > "$PIPAPP_DIR/manifest/$name"
+        sed "s:^:$PIPAPP_DIR/bin/:" >> "$PIPAPP_DIR/manifest/$name"
 
     # Finished.
     echo '--------------------------------------------------'
     echo "Finished installing $name. It added the following executables."
-    echo "$(echo "$execs_new" | sed 's/^/\t/')"
+    echo "$(echo "$execs_new" | sed 's/^/- /')"
 
 }
 
@@ -77,7 +92,7 @@ _pip-app::uninstall () {
         echo "Removed app '$name'."
 
     else
-        echo 'No such app is available.' >&2
+        echo 'Cannot delete, no such app is available.' >&2
         return 1
 
     fi
@@ -88,10 +103,10 @@ _pip-app::list () {
 
     local manifest_dir="$PIPAPP_DIR/manifest"
     for app in $(ls -1 "$manifest_dir"); do
-        echo $app
+        echo "$app:"
         local binaries="$(cat "$manifest_dir/$app" | \
             sed "s:$PIPAPP_DIR/bin/::" | tr '\n' ' ')"
-        echo "\t$binaries" | fmt
+        echo "-> $binaries"
     done
 
 }
@@ -118,12 +133,11 @@ pip-app () {
     fi
 
     local cmd="${1}"; shift
-    local args="${*}"
 
     case "${cmd}" in
-        install) _pip-app::install ${args};;
-        uninstall) _pip-app::uninstall ${args};;
-        list) _pip-app::list ${args};;
+        install) _pip-app::install "$@";;
+        uninstall) _pip-app::uninstall "$@";;
+        list) _pip-app::list "$@";;
         *) _pip-app::usage; return 1;;
     esac
 
