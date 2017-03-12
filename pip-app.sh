@@ -19,7 +19,7 @@ _pip-app::install () {
     if [[ -d "$venv_dir" ]]; then
         if [[ "$#" -lt 1 ]]; then
             echo 'A virtual env with that name already exists and no additional package was requested.' >&2
-            return 1
+            return 3
         fi
     else
         # Create a new virtualenv
@@ -48,6 +48,11 @@ _pip-app::install () {
 
     # The new execs created by the app.
     local execs_new="$(comm -13 <(echo "$execs_before") <(echo "$execs_after"))"
+
+    # For idempotency reasons, return code 3 when no change
+    if [ -z "$execs_new"]; then
+       return 3
+    fi
 
     # Make sure the bin directory exists.
     mkdir -p "$PIPAPP_DIR/bin"
