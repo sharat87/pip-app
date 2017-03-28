@@ -50,7 +50,7 @@ _pip-app::install () {
     local execs_new="$(comm -13 <(echo "$execs_before") <(echo "$execs_after"))"
 
     # For idempotency reasons, return code 3 when no change
-    if [ -z "$execs_new"]; then
+    if [ -z "$execs_new" ]; then
        return 3
     fi
 
